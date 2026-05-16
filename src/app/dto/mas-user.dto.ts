@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsBoolean,
@@ -11,6 +11,7 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  ValidateIf,
   ValidateNested,
 } from 'class-validator';
 import { RoleEnum, SexEnum } from '../enum/mas-user.enum';
@@ -69,6 +70,8 @@ export class CreateMasterUserDto {
 
   @ApiProperty({ required: false, example: '1990-01-01' })
   @IsOptional()
+  @ValidateIf((o) => o.birthday !== '' && o.birthday !== null)
+  @Transform(({ value }) => (value === '' ? null : value))
   @IsDateString() // ใช้ตรวจสอบรูปแบบวันที่ YYYY-MM-DD
   birthday?: string;
 
@@ -99,6 +102,12 @@ export class CreateMasterUserDto {
 
   @ApiProperty({ required: false, example: '2025-12-31' })
   @IsOptional()
+  @ValidateIf(
+    (o) =>
+      o.professionalLicenseEndDate !== '' &&
+      o.professionalLicenseEndDate !== null,
+  )
+  @Transform(({ value }) => (value === '' ? null : value))
   @IsDateString()
   professionalLicenseEndDate?: string;
 
