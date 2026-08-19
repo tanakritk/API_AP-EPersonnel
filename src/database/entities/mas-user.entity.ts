@@ -60,13 +60,28 @@ export class MasterUser extends BaseEntity {
   statusWork: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  professionalLicenseNo: string;
+  professionalLicenseNo: string;                                // เลขที่ใบประกอบวิชาชีพครู
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  administratorLicenseNo: string;                               // เลขที่ใบอนุญาตผู้บริหาร
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  supervisorLicenseNo: string;                                  // เลขที่ใบประกอบวิชาชีพศึกษานิเทศน์
 
   @Column({ type: 'date', nullable: true })
-  professionalLicenseEndDate: string;
+  professionalLicenseEndDate: string;                           // วันหมดอายุใบประกอบวิชาชีพครู
+
+  @Column({ type: 'date', nullable: true })
+  administratorLicenseEndDate: string;                          // วันหมดอายุใบอนุญาตผู้บริหาร
+
+  @Column({ type: 'date', nullable: true })
+  supervisorLicenseEndDate: string;                             // วันหมดอายุใบประกอบวิชาชีพศึกษานิเทศน์
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   yearService: string;
+
+  @Column({ type: 'date', nullable: true })
+  yearServiceStartDate: string;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   subjects: string;
@@ -109,6 +124,9 @@ export class MasterUser extends BaseEntity {
 
   @Column({ type: 'varchar', length: 100, nullable: true }) // หัวหน้าฝ่ายงาน
   sex: SexEnum;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  academicStanding: string;
 
   // --------------------------------------------------------------------------------------------- //
 

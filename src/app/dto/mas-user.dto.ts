@@ -100,6 +100,16 @@ export class CreateMasterUserDto {
   @IsString()
   professionalLicenseNo?: string;
 
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  administratorLicenseNo?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  supervisorLicenseNo?: string;
+
   @ApiProperty({ required: false, example: '2025-12-31' })
   @IsOptional()
   @ValidateIf(
@@ -111,10 +121,39 @@ export class CreateMasterUserDto {
   @IsDateString()
   professionalLicenseEndDate?: string;
 
+  @ApiProperty({ required: false, example: '2025-12-31' })
+  @IsOptional()
+  @ValidateIf(
+    (o) =>
+      o.professionalLicenseEndDate !== '' &&
+      o.professionalLicenseEndDate !== null,
+  )
+  @Transform(({ value }) => (value === '' ? null : value))
+  @IsDateString()
+  administratorLicenseEndDate?: string;
+
+  @ApiProperty({ required: false, example: '2025-12-31' })
+  @IsOptional()
+  @ValidateIf(
+    (o) =>
+      o.professionalLicenseEndDate !== '' &&
+      o.professionalLicenseEndDate !== null,
+  )
+  @Transform(({ value }) => (value === '' ? null : value))
+  @IsDateString()
+  supervisorLicenseEndDate?: string;
+
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   yearService?: string;
+
+  @ApiProperty({ required: false, example: '2020-01-01' })
+  @IsOptional()
+  @ValidateIf((o) => o.yearServiceStartDate !== '' && o.yearServiceStartDate !== null)
+  @Transform(({ value }) => (value === '' ? null : value))
+  @IsDateString()
+  yearServiceStartDate?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
@@ -160,6 +199,11 @@ export class CreateMasterUserDto {
   @IsOptional()
   @IsEnum(SexEnum)
   sex?: SexEnum;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  academicStanding?: string;
 }
 
 export class UpdateMasterUserDto extends PartialType(CreateMasterUserDto) {}
